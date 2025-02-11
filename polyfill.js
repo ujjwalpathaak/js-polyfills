@@ -50,22 +50,22 @@
 
 // Polyfill for reduce()
 
-Array.prototype.myReduce = function (cb, value) {
-    var accum = value || 0;
-    for (let i = 0; i < this.length; i++) {
-        accum = cb(this[i], accum);
-    }
+// Array.prototype.myReduce = function (cb, value) {
+//     var accum = value || 0;
+//     for (let i = 0; i < this.length; i++) {
+//         accum = cb(this[i], accum);
+//     }
 
-    return accum;
-}
+//     return accum;
+// }
 
-let arr = [1, 2, 0, 1, 3];
-let cb = (curr, value) => {
-    return value + curr;
-}
-let ans = arr.myReduce(cb, );
+// let arr = [1, 2, 0, 1, 3];
+// let cb = (curr, value) => {
+//     return value + curr;
+// }
+// let ans = arr.myReduce(cb, );
 
-console.log(ans);
+// console.log(ans);
 
 // -------------------------------------------------------------------
 
