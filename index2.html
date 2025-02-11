@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Throttle & Debounce Example</title>
+    <style>
+        body {
+            height: 99999px;
+        }
+        section {
+            position: fixed;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <p class="n_count">Normal Count: <span>0</span></p>
+        <p class="t_count">Throttle Count: <span>0</span></p>
+        <p class="d_count">Debounce Count: <span>0</span></p>
+    </section>
+    
+    <script>
+        let normalCount = 0;
+        let throttleCount = 0;
+        let debounceCount = 0;
+
+        function throttle(func, limit) {
+            let inThrottle = false;
+            return function() {
+                if (!inThrottle) {
+                    func();
+                    inThrottle = true;
+                    setTimeout(() => inThrottle = false, limit);
+                }
+            };
+        }
+
+        function debounce(func, delay) {
+            let timer = setTimeout(() => func(), delay);
+            return function() {
+                clearTimeout(timer);
+                timer = setTimeout(() => func(), delay);
+            };
+        }
+
+        function showNormalCount() {
+            normalCount++;
+            document.querySelector(".n_count span").textContent = normalCount;
+        }
+
+        const showThrottleCount = throttle(() => {
+            throttleCount++;
+            document.querySelector(".t_count span").textContent = throttleCount;
+        }, 1000);
+
+        const showDebounceCount = debounce(() => {
+            debounceCount++;
+            document.querySelector(".d_count span").textContent = debounceCount;
+        }, 1000);
+
+        // Attach event listeners
+        window.addEventListener("scroll", showNormalCount);
+        window.addEventListener("scroll", showThrottleCount);
+        window.addEventListener("scroll", showDebounceCount);
+    </script>
+</body>
+</html>
